@@ -16,7 +16,7 @@ int atm=0;
 struct container{
 	/*
 	 *Each field contain:
-	 * 	-Condition : Is this field still have 0-8 (initial) condition  or not to check who is the owner of this field
+	 * 	-Condition : Is this field still have 0-8 (initial) condition  or not AND to check who is the owner of this field
 	 * 	-Occupied Status: is this field occupied yet? 
 	 * 	-Attribute : Symbol X or O
 	 * 
