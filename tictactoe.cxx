@@ -16,7 +16,7 @@ int atm=0;
 struct container{
 	/*
 	 *Each field contain:
-	 * 	-Condition : Is this field still have 0-8 (initial) condition  or not AND to check who is the owner of this field
+	 * 	-Condition : Is this field still have 0-8 (initial) condition  or not to check who is the owner of this field
 	 * 	-Occupied Status: is this field occupied yet? 
 	 * 	-Attribute : Symbol X or O
 	 * 
@@ -34,28 +34,21 @@ void field(){
 	/*
 	 * Draw the field
 	 */
-	cout<<setw(3)<<table[0].attr<<"|"<<setw(3)<<table[1].attr<<"|"<<setw(3)<<table[2].attr<<endl;
+	cout<<setw(3)<<table[6].attr<<"|"<<setw(3)<<table[7].attr<<"|"<<setw(3)<<table[8].attr<<endl;
 	cout<<"-----------"<<endl;
 	cout<<setw(3)<<table[3].attr<<"|"<<setw(3)<<table[4].attr<<"|"<<setw(3)<<table[5].attr<<endl;
 	cout<<"-----------"<<endl;
-	cout<<setw(3)<<table[6].attr<<"|"<<setw(3)<<table[7].attr<<"|"<<setw(3)<<table[8].attr<<endl;
+	cout<<setw(3)<<table[0].attr<<"|"<<setw(3)<<table[1].attr<<"|"<<setw(3)<<table[2].attr<<endl;
 }
 
 bool go_check(){
 	/*
 	 * Check if the game is finished or not. this function check allthe game rule and number of attempt
 	 */
-	int attempt = 0;
+	int attempt;
 	bool cek;
-	for (int i = 0; i < 9; i++)
-	{
-		if (table[i].cond == i)
-		{
-			attempt++;
-		}
-	}
-	atm =attempt;
-	cout<<attempt<<endl;
+	
+	//cout<<attempt<<endl;
 	
 	if ((table[0].attr == table[3].attr)&&(table[3].attr == table[6].attr)&&(table[0].attr == table[6].attr)){
 		cek = true;
@@ -73,10 +66,22 @@ bool go_check(){
 		cek = true;
 	}else if ((table[2].attr == table[4].attr)&&(table[2].attr == table[6].attr)&&(table[4].attr == table[6].attr)){
 		cek = true;
-	}else if (attempt == 0){
-		cek = true;
 	}else{
 		cek = false;
+	}
+	
+	attempt = 0;
+	for (int i = 0; i < 9; i++)
+	{
+		if (table[i].occ == 0)
+		{
+			attempt++;
+		}
+	}
+	atm =attempt;
+	
+	if (attempt == 0 && cek == false){
+		cek = true;
 	}
 	return cek;
 }
@@ -86,9 +91,10 @@ void do_game(int role){
 	 * this is where the game begin
 	 * im using odd and even number to check who is playing this role
 	 */
-	system("CLS");
+	//system("CLS");
 	string player1 = "X", player2 = "O", playerPlay;
 	int fieldCond;
+	cout<<"ROLE :"<<role<<endl;
 	cout<<atm<<endl<<endl; //nah don't mind it, just print the number of attempt
 	int fieldChoose;
 	field();
@@ -102,6 +108,7 @@ void do_game(int role){
 	}
 	
 	cout<<"Player "<<playerPlay<<" Field Choose: ";cin>>fieldChoose;
+	fieldChoose--;
 	if (fieldChoose < 9 && fieldChoose >= 0 )
 	{
 		if (table[fieldChoose].occ == 0){
@@ -120,7 +127,8 @@ void do_game(int role){
 	}
 	
 	if(go_check()== true){
-		system("cls:=");
+		//system("cls");
+		cout<<"ROLE :"<<role<<endl;
 		field();
 		if (atm==0){
 			cout<<"DRAW"<<endl;
@@ -129,6 +137,8 @@ void do_game(int role){
 		}else{
 			cout<<"PLAYER X WIN"<<endl;
 		}
+		system("PAUSE");
+		exit(0);
 	}else{
 		role++;
 		do_game(role);
@@ -146,15 +156,15 @@ int main()
 	 */
 	int role=0;
 	
-	table[0].attr = "0";
-	table[1].attr = "1";
-	table[2].attr = "2";
-	table[3].attr = "3";
-	table[4].attr = "4";
-	table[5].attr = "5";
-	table[6].attr = "6";
-	table[7].attr = "7";
-	table[8].attr = "8";
+	table[0].attr = "1";
+	table[1].attr = "2";
+	table[2].attr = "3";
+	table[3].attr = "4";
+	table[4].attr = "5";
+	table[5].attr = "6";
+	table[6].attr = "7";
+	table[7].attr = "8";
+	table[8].attr = "9";
 	
 	for (int i = 0; i < 9; i++)
 	{
